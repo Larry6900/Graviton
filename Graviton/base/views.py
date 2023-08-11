@@ -43,7 +43,6 @@ def searchyt(prompt, data):
     youtubeurl = []
     youtubetitle = []
     youtubethumbnail = []
-    search=''
     for item in data:
         query = f'{item} reagrding {prompt} in english'
         videosSearch = VideosSearch(query, limit=1)
@@ -57,40 +56,6 @@ def searchyt(prompt, data):
         youtubetitle.append(video_title)
         youtubethumbnail.append(video_thumbnail)
     return youtubeurl,youtubetitle,youtubethumbnail
-    """ youtubeurl = []
-    youtubetitle = []
-    youtubethumbnail = []
-    for item in data:
-        api_service_name = "youtube"
-        api_version = "v3"
-        # ! AIzaSyDwSJT7QoOiI9I_NbcXLrrsd9JDtalBnCo <-- Production key
-        # ! Test key 1 = AIzaSyDdtfiqsGtzbqC_Kk3zex0cKCdwNaFOmDU
-        # ! Test key 3 = AIzaSyAlJLbLQvbSIuaySc8y0EHSIFy3sZdbb88
-        # ! Test key 2 = AIzaSyDQkVnWcwpJ1zeVchO2VBBOHWN3tMbl3_Q
-        DEVELOPER_KEY = 'AIzaSyDQkVnWcwpJ1zeVchO2VBBOHWN3tMbl3_Q'
-        youtube = googleapiclient.discovery.build(
-            api_service_name, api_version, developerKey=DEVELOPER_KEY)
-        request = youtube.search().list(
-            part="id,snippet",
-            type='video',
-            videoDuration='long',
-            q=str(item + prompt + "in english"),
-            maxResults=1,
-            fields="items(id(videoId),snippet(title))"
-        )
-        response = request.execute()
-        jsondata = json.dumps(response)
-        # Parse the JSON string back into a Python object
-        data = json.loads(jsondata)
-        # Access the desired values from the parsed data
-        videoid = data['items'][0]['id']['videoId']
-        title = data['items'][0]['snippet']['title']
-        # Append the values to the respective lists
-        youtubeurl.append(f"https://youtu.be/{videoid}")
-        youtubetitle.append(title)
-        youtubethumbnail.append(f"https://img.youtube.com/vi/{videoid}/0.jpg")
-        sleep(1)
-    return youtubeurl,youtubetitle,youtubethumbnail """
 
 def searchudemy(prompt,data):
     udemyurl = []
@@ -140,12 +105,12 @@ def result(request):
         udemy = request.POST.get('udemy')
     
     # Uses the user's prompt to generate the roadmap
-    #data = scrapeSite(prompt)
-    if prompt[0] == "C": #For c# prompt
+    data = scrapeSite(prompt)
+    """ if prompt[0] == "C": #For c# prompt
         data = ['How to install Visual Studio.', 'How to create a new C# project.', 'How to write a simple C# program.', 'How to use variables in C#.', 'How to use loops in C#.', 'How to use functions in C#.', 'How to use classes in C#.', 'How to use interfaces in C#.', 'How to use generics in C#.', 'How to use asynchronous programming in C#.', 'How to use dependency injection in C#.', 'How to use unit testing in C#.', 'How to deploy a C# application.', 'How to use the .NET Framework eith C#.', 'How to use the .NET Core Framework with C#.', 'How to use ASP.NET with C#.', 'How to use Entity Framework with C#.', 'How to use LINQ with C#.', 'How to use XML with C#.', 'How to use JSON with C#.', 'How to use web services with C#.', 'How to use APIs with C#.', 'How to use databases with C#.', 'Code Securtiy with C#.', 'How To Debug C# code', 'How to use profiling in C#.', 'How to use version control.', 'How to work with teams.', 'How to contribute to open source projects.', 'How to get a job as a C# developer.', 'How to continue learning C#.']
-    elif prompt[0] == "h": #How to learn origami 
+    elif prompt[0] == "O": #How to learn origami 
         data =['How to find a good origami paper.', 'How to fold a basic crease.', 'How to fold a square into a triangle.', 'How to fold a waterbomb base.', 'How to fold a crane.', 'How to fold a frog.', 'How to fold a boat.', 'How to fold a house.', 'How to fold a flower.', 'How to fold a heart.', 'How to fold a more complex model.', 'How to fold a modular origami model.', 'How to fold an origami sculpture.', 'How to fold an origami tessellation.', 'How to fold an origami garment.', 'How to fold an origami animal.', 'How to fold an origami plant.', 'How to fold an origami object.', 'How to fold an origami food.', 'How to fold an origami costume.', 'How to learn more about origami.', 'How to find origami tutorials.', 'How to join an origami club.', 'How to attend an origami workshop.', 'How to read origami books.', 'How to watch origami videos.', 'How to participate in origami competitions.', 'How to share your origami creations.', 'How to teach origami to others.', 'How to become an origami artist.']
-    
+     """
     if youtube == "youtubego":
         yturl,yttitle, ytthumbnail = searchyt(prompt, data)
     
